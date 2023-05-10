@@ -46,5 +46,3 @@ Se você encontrar algum bug ou tiver alguma sugestão de melhoria, sinta-se à 
 ## Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para obter mais informações.
-
-Espero que isso ajude a criar um README.md para o seu projeto em Go usando o Fiber e o GORM!
