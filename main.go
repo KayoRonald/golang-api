@@ -1,35 +1,33 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 
+	"github.com/KayoRonald/golang-api/app/handlers"
+	"github.com/KayoRonald/golang-api/app/middleware"
+	"github.com/KayoRonald/golang-api/app/router"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
-	app := fiber.New()
-
+	app := fiber.New(fiber.Config{
+		ErrorHandler: handlers.Error(),
+	})
 	// middleware cors
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
-		AllowHeaders: "Origin, Content-Type, Accept",
-		AllowMethods: "GET, POST, PUT, DELETE",
-	}))
+	app.Use(middleware.CorsMiddleware())
+	// middleware limiter request
+	app.Use(middleware.Limiter())
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Status(201).JSON(fiber.Map{
-			"success": true,
-			"message": "Hello World",
-		})
-	})
-
+	app.Get("/", router.GetUser)
 	// middleware not found
-	app.Use(func(c *fiber.Ctx) error {
-		return c.Status(404).JSON(fiber.Map{
-			"message": "not found :/",
-		})
-	})
+	app.Use(handlers.NotFound)
 
-	log.Fatal(app.Listen(":3000"))
+	// Listen on environment specified PORT, "3000" otherwise
+	port := os.Getenv("port")
+	if port == "" {
+		port = "3000"
+	}
+	log.Fatal(app.Listen(fmt.Sprintf(":%s", port)))
 }
