@@ -10,11 +10,14 @@ Antes de começar, você precisará ter o Go instalado no seu sistema. Para inst
 
 1. Clone o repositório para o seu sistema:
 
+```bash
 git clone https://github.com/KayoRonald/golang-api
-
+```
 2. Acesse o diretório do projeto:
 
+```bash
 cd golang-api
+```
 
 3. Inicie o servidor:
 
