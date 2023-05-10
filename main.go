@@ -5,22 +5,28 @@ import (
 	"log"
 	"os"
 
+	"github.com/gofiber/fiber/v2"
+
+	"github.com/KayoRonald/golang-api/app/database"
 	"github.com/KayoRonald/golang-api/app/handlers"
 	"github.com/KayoRonald/golang-api/app/middleware"
 	"github.com/KayoRonald/golang-api/app/router"
-	"github.com/gofiber/fiber/v2"
 )
+
+func setUpRoutes(app *fiber.App) {
+	app.Get("/", router.GetUser)
+}
 
 func main() {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: handlers.Error(),
 	})
+	database.ConnectDB()
 	// middleware cors
 	app.Use(middleware.CorsMiddleware())
 	// middleware limiter request
 	app.Use(middleware.Limiter())
-
-	app.Get("/", router.GetUser)
+	setUpRoutes(app)
 	// middleware not found
 	app.Use(handlers.NotFound)
 
