@@ -15,12 +15,14 @@ import (
 
 func setUpRoutes(app *fiber.App) {
 	app.Get("/", router.GetUser)
+	app.Post("/", router.PostUser)
 }
 
 func main() {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: handlers.Error(),
 	})
+	// inialize database
 	database.ConnectDB()
 	// middleware cors
 	app.Use(middleware.CorsMiddleware())

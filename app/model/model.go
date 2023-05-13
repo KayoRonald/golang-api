@@ -8,7 +8,7 @@ import (
 
 type Book struct {
 	gorm.Model
-	BookID      string     `gorm:"type:uuid;primaryKey" json:"user_id"`
+	BookID      string     `gorm:"type:uuid;primaryKey" json:"book_id"`
 	Title       string     `json:"title"`
 	UrlImage    string     `json:"urlImagem"`
 	Description string     `json:"description"`
