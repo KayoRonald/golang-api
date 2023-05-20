@@ -10,6 +10,7 @@ func Error() fiber.ErrorHandler {
 	 fmt.Println(err.Error())
 	 response := fiber.Map{
 		"message": err.Error(),
+		"status": "error",
 	 }
 	 return c.Status(fiber.StatusInternalServerError).JSON(response)
 	}

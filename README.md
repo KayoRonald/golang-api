@@ -43,8 +43,11 @@ Os dados são retornados em formato JSON.
 
 Se você encontrar algum bug ou tiver alguma sugestão de melhoria, sinta-se à vontade para abrir uma issue ou um pull request.
 
+<div align="center">
+  <img src="https://www.pragimtech.com/wp-content/uploads/2020/08/golang.png" width="190" title="Golang"/>
+  <img src="https://ucarecdn.com/42dad822-770d-478e-be99-26583e67cc9c/-/format/auto/-/progressive/yes/-/preview/480x480/" width="100" alt="Fiber" title="Fiber" />
+</div>
+
 ## Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para obter mais informações.
-
-Espero que isso ajude a criar um README.md para o seu projeto em Go usando o Fiber e o GORM!
