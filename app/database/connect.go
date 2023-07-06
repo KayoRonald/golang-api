@@ -1,9 +1,9 @@
 package database
 
 import (
-	"log"
 	"os"
 
+	"github.com/KayoRonald/golang-api/app/configs"
 	"github.com/KayoRonald/golang-api/app/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -14,20 +14,25 @@ type DbInstance struct {
 	Db *gorm.DB
 }
 
-var Database DbInstance
+var (
+	log *configs.Logger
+	Database DbInstance
+)
+
+// var 
 
 func ConnectDB() {
+	log = configs.GetLogger("database")
 	db, err := gorm.Open(sqlite.Open("api.db"), &gorm.Config{})
 
 	if err != nil {
-		log.Fatal("Failed to connect to the database! \n", err)
+		log.Error("Failed to connect to the database! \n", err)
 		os.Exit(2)
 	}
-
-	log.Println("Connected Successfully to Database")
+	log.Info("Connected Successfully to Database")
+	
 	db.Logger = logger.Default.LogMode(logger.Info)
-	log.Println("Running Migrations")
-
+	log.Info("Running Migrations")
 	db.AutoMigrate(&model.Book{})
 
 	Database = DbInstance{
