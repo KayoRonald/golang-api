@@ -1,2 +1,24 @@
+# Binaries
+
+*.exe
+*.dll
+*.so
+*.dylib
+
+
+# Test Binary
+
+*.test
+
+# Coverage
+
+*.out
+
+#env
 .env
+
+#vendor
 vendor
+
+#sql
+*db
