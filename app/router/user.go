@@ -28,7 +28,7 @@ func ByIDGet(c *fiber.Ctx) error {
 	book := model.Book{}
 	result := database.Database.Db.First(&book, "id = ?", id)
 	if result.RowsAffected == 0 {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"message": "Nenhum encontrado neste ID",
 			"status": "err",
 		})
@@ -41,7 +41,7 @@ func ByIDGet(c *fiber.Ctx) error {
 
 func PostBook(c *fiber.Ctx) error {
 	book := new(model.Book)
-	book.BookID = uuid.New().String()
+	book.ID = uuid.New().String()
 	if err := c.BodyParser(book); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": err.Error(),
@@ -51,6 +51,22 @@ func PostBook(c *fiber.Ctx) error {
 	database.Database.Db.Create(book)
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": book,
+		"status": "sucess",
+	})
+}
+
+func Delete(c *fiber.Ctx) error {
+	id := c.Params("id")
+	book := model.Book{}
+	result := database.Database.Db.Where("id = ?", id).Delete(&book)
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "Nenhum encontrado neste ID",
+			"status": "err",
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Livro deletado com sucesso!",
 		"status": "sucess",
 	})
 }

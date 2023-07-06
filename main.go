@@ -21,6 +21,7 @@ func setUpRoutes(app *fiber.App) {
 	app.Get("/", router.GetBook)
 	app.Get("/:id", router.ByIDGet)
 	app.Post("/", router.PostBook)
+	app.Delete("/:id", router.Delete)
 }
 
 func main() {
