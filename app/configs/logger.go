@@ -18,10 +18,10 @@ func NewLogger(p string) *Logger {
 	writer := io.Writer(os.Stdout)
 	logger := log.New(writer, p, log.Ldate|log.Ltime)
 	return &Logger{
-		debug:   log.New(writer, "\033[33m"+"DEBUG: ", logger.Flags()),
-		info:    log.New(writer, "\033[36m"+"INFO: ", logger.Flags()),
-		warning: log.New(writer, "\033[36m"+"WARNING: ", logger.Flags()),
-		err:     log.New(writer, "\033[31m"+"ERROR: ", logger.Flags()),
+		debug:   log.New(writer, "\033[33m"+"DEBUG: "+"\033[33m", logger.Flags()),
+		info:    log.New(writer, "\033[36m"+"INFO: "+"\033[36m", logger.Flags()),
+		warning: log.New(writer, "\033[35m"+"WARNING: "+"\033[35m", logger.Flags()),
+		err:     log.New(writer, "\033[31m"+"ERROR: "+"\033[31m", logger.Flags()),
 		writer:  writer,
 	}
 }
