@@ -4,10 +4,10 @@ import (
 	"os"
 
 	"github.com/KayoRonald/golang-api/app/configs"
-	"github.com/KayoRonald/golang-api/app/model"
+	"github.com/KayoRonald/golang-api/app/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	// "gorm.io/gorm/logger"
 )
 
 type DbInstance struct {
@@ -31,9 +31,9 @@ func ConnectDB() {
 	}
 	log.Info("Connected Successfully to Database")
 	
-	db.Logger = logger.Default.LogMode(logger.Info)
+	// db.Logger = logger.Default.LogMode(logger.Info)
 	log.Info("Running Migrations")
-	db.AutoMigrate(&model.Book{})
+	db.AutoMigrate(&models.Book{})
 
 	Database = DbInstance{
 		Db: db,
