@@ -44,7 +44,7 @@ func PostBook(c *fiber.Ctx) error {
 	book.BookID = uuid.New().String()
 	if err := c.BodyParser(book); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "err",
+			"message": err.Error(),
 			"status": "err",
 		})
 	}
