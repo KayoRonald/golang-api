@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 
 	"github.com/KayoRonald/golang-api/app/database"
 	"github.com/KayoRonald/golang-api/app/handlers"
@@ -25,6 +26,7 @@ func main() {
 	// inialize database
 	database.ConnectDB()
 	// middleware cors
+	app.Use(logger.New())
 	app.Use(middleware.CorsMiddleware())
 	// middleware limiter request
 	app.Use(middleware.Limiter())

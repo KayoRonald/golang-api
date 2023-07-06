@@ -1,35 +1,50 @@
 package router
 
 import (
-	// "fmt"
+	"fmt"
 
+	"github.com/KayoRonald/golang-api/app/database"
 	"github.com/KayoRonald/golang-api/app/model"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-	// "gorm.io/gorm"
 )
 
-// func CreateUsers(db *gorm.DB, Title string, UrlImage string, Description string, Price int) error {
-// 	return db.Create(&model.Book{BookID: uuid.New().String(), Title: Title, Description: Description, UrlImage: UrlImage, Price: uint(Price)}).Error
+// type Book struct {
+// 	BookID      string `json:"book_id"`
+// 	Title       string `json:"title"`
+// 	Description string `json:"description"`
+// }
+
+// func CreateResponseUser(book model.Book) Book {
+// 	return Book{BookID: book.BookID, Title: book.Title,Description: book.Description }
 // }
 
 // Handler
 func GetUser(c *fiber.Ctx) error {
 	// teste := ConnectDB.
+	book := []model.Book{}
+	result := database.Database.Db.First(&book)
+	fmt.Print(result.RowsAffected)
+	if result.RowsAffected == 0 {
+		return c.Status(fiber.StatusNoContent).JSON(fiber.Map{
+			"message": "Ops",
+		})
+	}
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Hello World",
+		"message": book,
 	})
 }
 
 func PostUser(c *fiber.Ctx) error {
-	// getting user if no error
 	book := new(model.Book)
 	book.BookID = uuid.New().String()
 	if err := c.BodyParser(book); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": err,
+			"message": "err",
 		})
 	}
+	database.Database.Db.Create(book)
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": book,
 	})
