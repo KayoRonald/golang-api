@@ -19,8 +19,6 @@ var (
 	Database DbInstance
 )
 
-// var 
-
 func ConnectDB() {
 	log = configs.GetLogger("database")
 	db, err := gorm.Open(sqlite.Open("api.db"), &gorm.Config{})
