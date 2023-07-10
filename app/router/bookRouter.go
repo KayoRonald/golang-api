@@ -6,9 +6,10 @@ import (
 )
 
 func BookRoutes(app *fiber.App) {
-	app.Get("/", controllers.GetBook)
-	app.Get("/:id", controllers.ByIDGet)
-	app.Post("/", controllers.PostBook)
-	app.Put("/:id", controllers.PutById)
-	app.Delete("/:id", controllers.Delete)
+	v1 := app.Group("book")
+	v1.Get("/", controllers.GetBook)
+	v1.Get("/:id", controllers.ByIDGet)
+	v1.Post("/", controllers.PostBook)
+	v1.Put("/:id", controllers.PutById)
+	v1.Delete("/:id", controllers.Delete)
 }
